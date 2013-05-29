@@ -10,7 +10,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529132347) do
+ActiveRecord::Schema.define(:version => 20130529134500) do
+
+  create_table "languages", :force => true do |t|
+    t.string   "name"
+    t.text     "content"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "texts", :force => true do |t|
     t.string   "content"

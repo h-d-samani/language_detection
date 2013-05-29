@@ -1,4 +1,7 @@
 LanguageDetection::Application.routes.draw do
+  resources :languages
+
+
   resources :texts
 
 
