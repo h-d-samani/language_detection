@@ -1,3 +1,4 @@
+require 'lib/whatlanguage'
 class TextsController < ApplicationController
   # GET /texts
   # GET /texts.json
@@ -14,7 +15,8 @@ class TextsController < ApplicationController
   # GET /texts/1.json
   def show
     @text = Text.find(params[:id])
-
+    @whatlanguage = WhatLanguage.new
+    puts @whatlanguage.language    
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @text }
@@ -40,6 +42,7 @@ class TextsController < ApplicationController
   # POST /texts
   # POST /texts.json
   def create
+    debugger
     @text = Text.new(params[:text])
 
     respond_to do |format|

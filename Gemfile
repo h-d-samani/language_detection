@@ -9,7 +9,7 @@ gem 'mysql2'
 
 gem 'json'
 
-gem 'whatlanguage'
+#gem 'whatlanguage'
 
 gem 'ruby-debug'
 
