@@ -41,8 +41,7 @@ require 'whatlanguage/bitfield'
 class BloominSimple
   attr_accessor :bitfield, :hasher
   
-  def initialize(bitsize, &block)
-    debugger
+  def initialize(bitsize, &block)    
     @bitfield = BitField.new(bitsize)
     @size = bitsize
     @hasher = block || lambda do |word|

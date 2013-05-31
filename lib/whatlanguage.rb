@@ -10,11 +10,9 @@ class WhatLanguage
   @@data = {}
   
   def initialize(options = {})
-    languages_folder = File.join(File.dirname(__FILE__), "..", "lang")
-    puts " ************** WhatLanguage::initialize"
-    Dir.entries(languages_folder).grep(/\.lang/).each do |lang|
-      debugger
-      @@data[lang[/\w+/].to_sym] ||= BloominSimple.from_dump(File.new(File.join(languages_folder, lang), 'rb').read, &HASHER)
+    languages_folder = File.join(File.dirname(__FILE__), "..", "lang")    
+    Dir.entries(languages_folder).grep(/\.lang/).each do |lang|      
+      @@data[lang[/\w+/].to_sym] ||= File.new(File.join(languages_folder, lang), 'rb').read
     end
   end
   
@@ -26,7 +24,7 @@ class WhatLanguage
     text.split.collect {|a| a.downcase }.each do |word|
       it += 1
       @@data.keys.each do |lang|
-        results[lang] += 1 if @@data[lang].includes?(word)
+        results[lang] += 1 if @@data[lang].include?(word)
       end
       
       # Every now and then check to see if we have a really convincing result.. if so, exit early.
@@ -42,9 +40,7 @@ class WhatLanguage
     results
   end
   
-  def language(text)
-    puts "what language -> lenguage"
-    debugger
+  def language(text)        
     process_text(text).max { |a,b| a[1] <=> b[1] }.first rescue nil
   end
   

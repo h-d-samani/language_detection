@@ -15,13 +15,7 @@ class TextsController < ApplicationController
   # GET /texts/1.json
   def show
     @text = Text.find(params[:id])
-    ss = "hello".language
-    puts "Detected language is => ", ss
-    #string_1 = String.new
-    # @whatlanguage = WhatLanguage.new
-    #ss = string_1.language("hello")
-    #puts ss
-    debugger
+               
     respond_to do |format|
       format.html # show.html.erb
       format.json { render :json => @text }
@@ -48,6 +42,7 @@ class TextsController < ApplicationController
   # POST /texts.json
   def create
     @text = Text.new(params[:text])
+    @text.language = @text.content.language    
 
     respond_to do |format|
       if @text.save
@@ -64,6 +59,8 @@ class TextsController < ApplicationController
   # PUT /texts/1.json
   def update
     @text = Text.find(params[:id])
+    ss = @text.content.language
+    @text.language = ss
 
     respond_to do |format|
       if @text.update_attributes(params[:text])
