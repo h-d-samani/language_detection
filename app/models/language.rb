@@ -1,3 +1,9 @@
 class Language < ActiveRecord::Base
-  attr_accessible :content, :name
+  attr_accessible :content, :name, :file
+  
+  has_attached_file :file,
+    :styles => {},
+    :url => "/language/:id/:basename.:extension",
+    :path => ":rails_root/lang/:id/:basename.:extension"
+    
 end

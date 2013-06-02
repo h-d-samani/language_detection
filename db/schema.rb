@@ -10,13 +10,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130529134500) do
+ActiveRecord::Schema.define(:version => 20130602021331) do
 
   create_table "languages", :force => true do |t|
     t.string   "name"
     t.text     "content"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
+    t.string   "file_file_name"
+    t.string   "file_content_type"
+    t.integer  "file_file_size"
   end
 
   create_table "texts", :force => true do |t|

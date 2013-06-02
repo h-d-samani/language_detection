@@ -2,11 +2,9 @@
 
 <table>
   <tr>
-    <th>Content</th>
-    <th>Language</th>
-    <th></th>
-    <th></th>
-    <th></th>
+    <th>Text</th>
+    <th>Detected Language</th>
+    <th colspan="3"></th>    
   </tr>
 
 <% @texts.each do |text| %>
@@ -15,7 +13,7 @@
     <td><%= text.language %></td>
     <td><%= link_to 'Show', text %></td>
     <td><%= link_to 'Edit', edit_text_path(text) %></td>
-    <td><%= link_to 'Destroy', text, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+    <td><%= link_to 'Delete', text, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
   </tr>
 <% end %>
 </table>

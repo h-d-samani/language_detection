@@ -1,18 +1,20 @@
-require 'whatlanguage/bloominsimple'
-require 'whatlanguage/bitfield'
-require 'digest/sha1'
+#require 'whatlanguage/bloominsimple'
+#require 'whatlanguage/bitfield'
+#require 'digest/sha1'
 
 class WhatLanguage
-  HASHER = lambda { |item| Digest::SHA1.digest(item.downcase.strip).unpack("VV") }
+  #HASHER = lambda { |item| Digest::SHA1.digest(item.downcase.strip).unpack("VV") }
   
-  BITFIELD_WIDTH = 2_000_000
+  #BITFIELD_WIDTH = 2_000_000
   
   @@data = {}
   
   def initialize(options = {})
-    languages_folder = File.join(File.dirname(__FILE__), "..", "lang")    
-    Dir.entries(languages_folder).grep(/\.lang/).each do |lang|      
-      @@data[lang[/\w+/].to_sym] ||= File.new(File.join(languages_folder, lang), 'rb').read
+    #languages_folder = File.join(File.dirname(__FILE__), "..", "lang")
+    languages_folder = "lang"    
+    Dir.glob("#{languages_folder}/**/*").grep(/\.lang/).each do |lang|
+      debugger    
+      @@data[lang[/\w+/].to_sym] ||= File.new(lang, 'rb').read
     end
   end
   
@@ -44,11 +46,11 @@ class WhatLanguage
     process_text(text).max { |a,b| a[1] <=> b[1] }.first rescue nil
   end
   
-  def self.filter_from_dictionary(filename)
-    bf = BloominSimple.new(BITFIELD_WIDTH, &HASHER)
-    File.open(filename).each { |word| bf.add(word) }
-    bf
-  end
+  # def self.filter_from_dictionary(filename)
+    # bf = BloominSimple.new(BITFIELD_WIDTH, &HASHER)
+    # File.open(filename).each { |word| bf.add(word) }
+    # bf
+  # end
 end
 
 class String

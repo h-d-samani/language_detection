@@ -9,7 +9,7 @@ gem 'mysql2'
 
 gem 'json'
 
-#gem 'whatlanguage'
+gem 'paperclip', '~> 2.7'
 
 gem 'ruby-debug'
 
