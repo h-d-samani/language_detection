@@ -1,26 +1,20 @@
-#require 'whatlanguage/bloominsimple'
-#require 'whatlanguage/bitfield'
-#require 'digest/sha1'
-
 class WhatLanguage
-  #HASHER = lambda { |item| Digest::SHA1.digest(item.downcase.strip).unpack("VV") }
-  
-  #BITFIELD_WIDTH = 2_000_000
-  
+
   @@data = {}
   
   def initialize(options = {})
     #languages_folder = File.join(File.dirname(__FILE__), "..", "lang")
-    languages_folder = "lang"    
+    languages_folder = "lang"
+    # Dir.entries(languages_folder).grep(/\.lang/).each do |lang|    
     Dir.glob("#{languages_folder}/**/*").grep(/\.lang/).each do |lang|
-      debugger    
-      @@data[lang[/\w+/].to_sym] ||= File.new(lang, 'rb').read
+      file_name = lang[/\w+\.lang/]
+      @@data[file_name[/\w+/].to_sym] ||= File.new(lang, 'rb').read.downcase.gsub!(/(;|\.|:|,)/," ")
     end
   end
   
-  # Very inefficient method for now.. but still beats the non-Bloom alternatives.
-  # Change to better bit comparison technique later..
+  # Proccess the text by searching in all available languages to the application.
   def process_text(text)
+    debugger
     results = Hash.new(0)
     it = 0
     text.split.collect {|a| a.downcase }.each do |word|
@@ -29,11 +23,10 @@ class WhatLanguage
         results[lang] += 1 if @@data[lang].include?(word)
       end
       
-      # Every now and then check to see if we have a really convincing result.. if so, exit early.
+      # If we have a convincing result, exit.
       if it % 4 == 0 && results.size > 1
-        top_results = results.sort_by{|a,b| b}.reverse[0..1]
+        top_results = results.sort_by{|a,b| b}.reverse[0..1]        
         
-        # Next line may need some tweaking one day..
         break if top_results[0][1] > 4 && ((top_results[0][1] > top_results[1][1] * 2) || (top_results[0][1] - top_results[1][1] > 25))
       end
       
@@ -44,13 +37,8 @@ class WhatLanguage
   
   def language(text)        
     process_text(text).max { |a,b| a[1] <=> b[1] }.first rescue nil
-  end
+  end  
   
-  # def self.filter_from_dictionary(filename)
-    # bf = BloominSimple.new(BITFIELD_WIDTH, &HASHER)
-    # File.open(filename).each { |word| bf.add(word) }
-    # bf
-  # end
 end
 
 class String

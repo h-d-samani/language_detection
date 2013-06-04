@@ -59,9 +59,8 @@ class TextsController < ApplicationController
   # PUT /texts/1.json
   def update
     @text = Text.find(params[:id])
-    ss = @text.content.language
-    @text.language = ss
-
+    #ss = @text.content.language
+    params[:text][:language] = @text.content.language
     respond_to do |format|
       if @text.update_attributes(params[:text])
         format.html { redirect_to @text, :notice => 'Text was successfully updated.' }
