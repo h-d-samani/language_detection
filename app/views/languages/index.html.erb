@@ -2,20 +2,18 @@
 
 <table class="languages">
   <tr>
-    <th>Language Name</th>
-    <th>Content</th>    
-    <th>File</th>
+    <th>Language Name</th>        
+    <th>File Name</th>
     <th colspan="3"></th>    
   </tr>
 
 <% @languages.each do |language| %>
   <tr>
-    <td><%= language.name %></td>
-    <td><%= language.content %></td>
+    <td><%= language.name %></td>    
     <td><%= language.file_file_name %></td>
     <td><%= link_to 'Show', language %></td>
     <td><%= link_to 'Edit', edit_language_path(language) %></td>
-    <td><%= link_to 'Delete', language, :method => :delete, :data => { :confirm => 'Are you sure?' } %></td>
+    <td><%= link_to 'Delete', language, :method => :delete, :data => { :confirm => 'Are you sure you wnat to delete the language?' } %></td>
   </tr>
 <% end %>
 </table>

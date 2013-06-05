@@ -12,9 +12,13 @@
 
 <p>
   <b>File:</b>
-  <%= @language.file_file_name %>
+  <%= @language.file_file_name %>  
+</p>
+
+<p>
+  <%= link_to @language.file.original_filename, @language.file.url %>	
 </p>
 
 
 <%= link_to 'Edit', edit_language_path(@language) %> |
-<%= link_to 'Back', languages_path %>
+<%= link_to 'All languages', languages_path %>

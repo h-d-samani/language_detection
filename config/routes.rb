@@ -4,7 +4,8 @@ LanguageDetection::Application.routes.draw do
 
   resources :texts
 
-
+  match "/language/:id/:basename.:extension" => "languages#download"
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

@@ -14,14 +14,13 @@
   <div class="field">
     <%= f.label :name %><br />
     <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :content %><br />
-    <%= f.text_area :content %>
-  </div>
+  </div>  
   <div class="field">
   	<%= f.label :file %><br />
-  	<%= f.file_field :file%>    
+  	<%= f.file_field :file, :value => f.object.file.to_file %>  	
+  </div>
+  <div class="field">  	
+  	<%= link_to f.object.file.original_filename, f.object.file.url if f.object.file.present? %>
   </div>
   <div class="actions">
     <%= f.submit %>

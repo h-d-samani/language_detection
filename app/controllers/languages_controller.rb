@@ -79,4 +79,13 @@ class LanguagesController < ApplicationController
       format.json { head :no_content }
     end
   end
+  
+  def download
+    head(:not_found) and return if (language = Language.find_by_id(params[:id])).nil?
+    send_data(language.file.to_file.read,
+      :filename => language.file.original_filename,
+      :type => language.file.content_type,
+      :disposition => 'inline'
+    )
+  end
 end
